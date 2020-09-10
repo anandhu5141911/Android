@@ -1,0 +1,40 @@
+// Android Spinner With Kotlin
+
+ val countries = arrayOf("India", "Italy", "USA")
+    lateinit var spinner: Spinner
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        spinner = findViewById(R.id.spinner1)
+        val textView_msg= findViewById<TextView>(R.id.text_print)
+
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, countries)
+        // Set layout to use when the list of choices appear
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // Set Adapter to Spinner
+        spinner.setAdapter(spinnerAdapter)
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                textView_msg!!.text = "Selected : "+countries[position]
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.selected_item) + " " + countries[position],
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+    }
